@@ -24,5 +24,6 @@
     "*.module.css": "${capture}.module.css.d.ts, ${capture}.module.css.d.ts.map",
     "controller.ts": "validators.ts, $relay.ts",
     "tsconfig.json": "tsconfig.tsbuildinfo"
-  }
+  },
+  "cSpell.words": ["geolocate", "Mapbox"]
 }

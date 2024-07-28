@@ -8,7 +8,6 @@ function Document() {
       <Head>
         <meta name="description" content={APP_NAME} />
         <link rel="icon" href={staticPath.favicon_png} />
-        <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css" rel="stylesheet" />
       </Head>
       <body>
         <Main />
