@@ -1,22 +1,25 @@
 import { Loading } from 'components/loading/Loading';
 import { useMap } from 'features/map/useMap';
+import html2canvas from 'html2canvas';
 import { useState } from 'react';
-import { apiClient } from 'utils/apiClient';
 import styles from './index.module.css';
 
 const EvacuationSearch = () => {
   const [responseImageUrl, setResponseImageUrl] = useState<string | null>(null);
-  const { loading, mapContainerRef, captureMap } = useMap();
+  const { loading, mapContainerRef } = useMap();
 
   const handleStartEvacuation = async () => {
-    const imageData = captureMap();
-    if (imageData) {
-      const response: string = await apiClient.mapData
-        .post({ body: { imageUrl: imageData } })
-        .then((res) => res.body)
-        .catch((err) => err);
-
-      setResponseImageUrl(response);
+    if (!mapContainerRef.current) return;
+    try {
+      const canvas = await html2canvas(mapContainerRef.current, {
+        useCORS: true,
+        allowTaint: true,
+        logging: true,
+      });
+      const imgData = canvas.toDataURL('image/png');
+      setResponseImageUrl(imgData);
+    } catch (error) {
+      console.error('Error capturing the map:', error);
     }
   };
   return (

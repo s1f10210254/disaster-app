@@ -6,7 +6,7 @@ import { NEXT_PUBLIC_MAPBOX_API_KEY } from 'utils/envValues';
 
 mapboxgl.accessToken = NEXT_PUBLIC_MAPBOX_API_KEY as string;
 export const useMap = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -16,6 +16,7 @@ export const useMap = () => {
         style: 'mapbox://styles/mapbox/streets-v11',
         center: [139.7670516, 35.6811673], // 東京駅
         zoom: 12,
+        preserveDrawingBuffer: true,
       });
 
       // Add language control to the map.
@@ -55,14 +56,5 @@ export const useMap = () => {
     }
   }, []);
 
-  const captureMap = () => {
-    if (mapContainerRef.current) {
-      const canvas = mapContainerRef.current.querySelector('.mapboxgl-canvas') as HTMLCanvasElement;
-      console.log('canvas: ', canvas);
-      return canvas.toDataURL('image/png');
-    }
-    return null;
-  };
-
-  return { loading, mapContainerRef, captureMap };
+  return { loading, mapContainerRef };
 };
