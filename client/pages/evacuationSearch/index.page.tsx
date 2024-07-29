@@ -2,7 +2,6 @@ import { Loading } from 'components/loading/Loading';
 import { useMap } from 'features/map/useMap';
 import html2canvas from 'html2canvas';
 import { useState } from 'react';
-import { apiClient } from 'utils/apiClient';
 import styles from './index.module.css';
 
 const EvacuationSearch = () => {
@@ -11,18 +10,18 @@ const EvacuationSearch = () => {
   const { loading, mapContainerRef } = useMap();
 
   // 画像をminiOにアップロードする関数
-  const uploadImage = async (filePath: string, image: Blob) => {
-    const upload = await apiClient.uploadImage.$put({
-      body: { filePath, image },
-    });
-    return upload;
-  };
+  // const uploadImage = async (filePath: string, image: Blob) => {
+  //   const upload = await apiClient.uploadImage.$put({
+  //     body: { filePath, image },
+  //   });
+  //   return upload;
+  // };
 
   // 署名付きURLを取得する関数
-  const getSingedUrl = async (filePath: string) => {
-    const url = await apiClient.uploadImage.get({ query: { filePath } });
-    return url.body;
-  };
+  // const getSingedUrl = async (filePath: string) => {
+  //   const url = await apiClient.uploadImage.get({ query: { filePath } });
+  //   return url.body;
+  // };
 
   // 画像をpngからBlobに変換する関数
   const dataURLtoBlob = (dataURL: string) => {
@@ -38,10 +37,10 @@ const EvacuationSearch = () => {
   };
 
   // 画像URLからGPT-4で文字認識を行う関数
-  const recognition = async (imageUrl: string) => {
-    const response = await apiClient.uploadImage.$post({ body: { imageUrl } });
-    return response;
-  };
+  // const recognition = async (imageUrl: string) => {
+  //   const response = await apiClient.uploadImage.$post({ body: { imageUrl } });
+  //   return response;
+  // };
 
   const handleStartEvacuation = async () => {
     if (!mapContainerRef.current) return;
@@ -56,19 +55,19 @@ const EvacuationSearch = () => {
       const blob = dataURLtoBlob(imgData);
       console.log('blob:', blob);
 
-      // 画像をminiOにアップロード
-      const response = await uploadImage(filePath, blob);
-      console.log('response:', response);
+      // // 画像をminiOにアップロード
+      // const response = await uploadImage(filePath, blob);
+      // console.log('response:', response);
 
-      // 署名付きURLを取得
-      const signedUrl = await getSingedUrl(filePath);
-      console.log('signedUrl:', signedUrl);
-      setResponseImageUrl(signedUrl);
+      // // 署名付きURLを取得
+      // const signedUrl = await getSingedUrl(filePath);
+      // console.log('signedUrl:', signedUrl);
+      // setResponseImageUrl(signedUrl);
 
-      // GPT-4で文字認識
-      const gptResponse = await recognition(signedUrl);
-      console.log('gptResponse:', gptResponse);
-      setResponseText(gptResponse);
+      // // GPT-4で文字認識
+      // const gptResponse = await recognition(signedUrl);
+      // console.log('gptResponse:', gptResponse);
+      // setResponseText(gptResponse);
     } catch (error) {
       console.error('Error capturing the map:', error);
     }
