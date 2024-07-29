@@ -1,4 +1,5 @@
 import type { MultipartFile } from '@fastify/multipart';
+import { recognitionUseCase } from 'domain/evacuationSearch/useCase/recognitionUseCase';
 import { s3 } from 'service/s3Client';
 import { defineController } from './$relay';
 
@@ -11,15 +12,14 @@ export default defineController(() => ({
       body: url,
     };
   },
-  // post: async ({ body }) => {
-  //   const fileName = body.fileName;
-  //   const key = `images/${fileName}`;
-  //   const url = await s3.getSignedUrl(key);
-  //   return {
-  //     status: 201,
-  //     body: url,
-  //   };
-  // },
+  post: async ({ body }) => {
+    const imageUrl = body.imageUrl;
+    const gptResponse = await recognitionUseCase.recognition(imageUrl);
+    return {
+      status: 201,
+      body: gptResponse,
+    };
+  },
   put: async ({ body }) => {
     const filePath = body.filePath;
     const image: MultipartFile = body.image;
