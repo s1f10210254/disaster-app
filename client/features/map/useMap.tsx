@@ -15,7 +15,7 @@ export const useMap = () => {
         container: mapContainerRef.current,
         style: 'mapbox://styles/mapbox/streets-v11',
         center: [139.7670516, 35.6811673], // 東京駅
-        zoom: 12,
+        zoom: 14,
         preserveDrawingBuffer: true,
       });
 
@@ -41,7 +41,7 @@ export const useMap = () => {
         const handleGeolocate = (e: { coords: { longitude: number; latitude: number } }) => {
           const userLocation: LngLatLike = [e.coords.longitude, e.coords.latitude];
           map.setCenter(userLocation);
-          map.setZoom(15);
+          map.setZoom(14);
           // 一度だけ中央に設定し、その後リスナーを削除
           geolocateControl.off('geolocate', handleGeolocate);
         };
