@@ -25,5 +25,5 @@
     "controller.ts": "validators.ts, $relay.ts",
     "tsconfig.json": "tsconfig.tsbuildinfo"
   },
-  "cSpell.words": ["aspida", "geolocate", "Mapbox"]
+  "cSpell.words": ["aspida", "fastify", "geolocate", "Jwks", "Mapbox"]
 }
